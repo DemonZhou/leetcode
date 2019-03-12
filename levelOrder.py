@@ -7,6 +7,8 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: TreeNode) -> 'List[List[int]]':
+        if not root:
+            return []
         res = []
         q = [root]
         while q:
