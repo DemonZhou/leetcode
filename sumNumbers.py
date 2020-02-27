@@ -13,7 +13,8 @@ class Solution:
     def sumSubtree(self,root: TreeNode,currsum:int) ->int:
         if root == None:
             return 0
-        else:
-            currsum = currsum * 10 + root.val
+        currsum = currsum * 10 + root.val
+        if root.left == None and root.right == None:
+            return currsum
         return self.sumSubtree(root.left,currsum) + self.sumSubtree(root.right,currsum)
         
