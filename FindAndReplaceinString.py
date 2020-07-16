@@ -13,8 +13,6 @@ class Solution(object):
         :rtype: str
         """
 
-        l =list(S)
-        
         for i,s,t in sorted(zip(indexes,sources,targets),reverse=True):
             if S[i:i + len(s)] == s:
                 S = S[:i] + t + S[i+len(s):]

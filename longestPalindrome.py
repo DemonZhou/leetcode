@@ -1,26 +1,20 @@
-class Solution:
-    def longestPalindrome(self, s: str) -> str:
-        start = 0
-        end = 0
-        max_len = 0
-        l = len(s)
-        matrix = [[ 0 for x in range(l)] for y in range(l)]
-        for i in range(l):
-            j = 0
-            while j <=i :
-                if j == i:
-                    matrix[i][j] = True
-                elif i == j + 1:
-                    matrix[i][j] = s[i] == s[j]
-                else :
-                    matrix[i][j] = s[i] == s[j] and matrix[i-1][j+1] == True
-                if max_len < i - j and matrix[i][j] == True:
-                    max_len = i - j
-                    start = j
-                    end = i
-                j = j + 1
-        return s[start:end + 1]
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        n = len(s)
+        if not s: return ""
+        if n == 1: return s
 
-Sol = Solution()
-print(Sol.longestPalindrome("babad"))
-                
+        dp = [[False] * n for _ in range(n)]
+
+        ans = ""
+
+        for l in range(0,n):
+            for j in range(n - l):
+                if s[j] == s[j + l] and (j + 1 >= j + l - 1 or dp[j + 1][j + l - 1]):
+                    dp[j][j + l] = True
+                    ans = s[j : j + l + 1]
+        return ans

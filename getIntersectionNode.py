@@ -10,16 +10,10 @@ class Solution(object):
         :type head1, head1: ListNode
         :rtype: ListNode
         """
-        a = headA
-        b = headB
-        while a != b: 
-            if a == None:
-                a = headB
-            else:
-                a = a.next
-            if b == None:
-                b = headA 
-            else:
-                b = b.next
-        return a
-        
+        pA = headA
+        pB = headB
+
+        while pA != pB:
+            pA = pA.next if pA else headB
+            pB = pB.next if pB else headA
+        return pA

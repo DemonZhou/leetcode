@@ -1,52 +1,63 @@
 # Definition for singly-linked list.
-class ListNode:
+class ListNode(object):
     def __init__(self, x):
         self.val = x
         self.next = None
 
-class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        adder = 0
+        
         res = ListNode(0)
-        enum = res
-        carry = 0
-        while l1 and l2 :
-            val = l1.val + l2.val
-            if carry > 0 :
-                val += 1
-            if val  >= 10:
-                val = val % 10
-                carry = 1
-            else:
-                carry = 0
-            enum.next = ListNode(val)
-            enum = enum.next
+        start = res
+
+        while l1 and l2:
+            Sum = l1.val + l2.val + adder
+            adder = Sum / 10
+            start.val = Sum % 10 
             l1 = l1.next
             l2 = l2.next
 
-        if l1 == None and l2 == None and carry == 1:
-            enum.next = ListNode(1)
-            return res.next
+            if l1 == None and l2 == None :
+                if adder != 0:
+                    start.next = ListNode(adder)
+                    start = start.next
+                break
+            start.next = ListNode(0)
+            start = start.next
+        
+        while l1:
+            Sum = l1.val + adder
+            adder = Sum / 10
+            start.val = Sum % 10
+
+            l1 = l1.next
+            if l1 != None:
+                start.next = ListNode(0)
+                start = start.next
+            if l1 == None and adder != 0:
+                start.next = ListNode(adder)
+                start = start.next
+                break
+        
+        while l2:
+            Sum = l2.val + adder
+            adder = Sum / 10
+            start.val = Sum % 10
+
+        
+            l2 = l2.next
+            if l2 != None:
+                start.next = ListNode(0)
+                start = start.next
+            if l2 == None and adder != 0:
+                start.next = ListNode(adder)
+                start = start.next
+                break
             
-        if l1 != None:
-            enum.next = l1
-            enum = enum.next
-        if l2 != None:
-            enum.next = l2
-            enum = enum.next
-        while enum :
-            if carry > 0 :
-                enum.val += 1
-            if enum.val >= 10:
-                enum.val = enum.val % 10
-                carry = 1
-            else:
-                carry = 0
-            if enum.next == None and carry == 1:
-                enum.next = ListNode(1)
-                carry = 0
-            enum = enum.next
-        return res.next
-        
-
-
-        
+        return res

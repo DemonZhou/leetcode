@@ -1,0 +1,19 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        complement_dict = {}
+        res = []
+        for i in range(len(nums)):
+            complement_dict[target - nums[i]] = i
+        
+        for i in range(len(nums)):
+            k = target - nums[i]
+            if k in complement_dict.keys() and i != complement_dict[k]:
+                res.append(i)
+                res.append(complement_dict[str(k)])
+                break
+        return res
