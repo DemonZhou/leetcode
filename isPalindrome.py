@@ -1,37 +1,28 @@
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
 class Solution(object):
-    def isPalindrome(self, head):
+    def isPalindrome(self, x):
         """
-        :type head: ListNode
+        :type x: int
         :rtype: bool
         """
-        if not head or not head.next:
+
+        if x < 0:
+            return False
+        if x == 0:
             return True
-
-        slow , fast = head , head
-
-        pre = p = None
-
-        while fast and fast.next:
-            p = slow
-
-            slow = slow.next
-            fast = fast.next.next
-            p.next = pre
-            pre = p
         
-        if fast:
-            slow = slow.next
+        if x < 10 :
+            return True
+        
+        if x // 10 == x % 10:
+            return True
+        
+        digits = len(str(x))
+        n1 = int(list(str(x))[0])
+        n2 = x % 10
+        #print(n1)
+        #print(n2)
+        newx = (x - n2 - n1* 10 ** (digits - 1)) // 10
+        #print(newx)
+        return n1 == n2 and self.isPalindrome(newx)
 
-        while p:
-            if p.val != slow.val:
-                return False
-            p = p.next
-            slow = slow.next
-        return True
-
+print( Solution().isPalindrome(313) )
